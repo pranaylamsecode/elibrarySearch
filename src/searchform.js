@@ -210,7 +210,7 @@ const Searchform = ({ searchText }) => {
                 library
                   ? library.map((genre, i) => ({
                       label: genre.label,
-                      value: genre.id,
+                      value: genre.value,
                     }))
                   : []
               }
