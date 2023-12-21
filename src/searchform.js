@@ -10,6 +10,12 @@ const Searchform = ({ searchText }) => {
   const [publishers, setPublisher] = useState([]);
   const [languages, setLanguage] = useState([]);
   const [formats, setFormat] = useState([]);
+  const [library, setLibrary] = useState([
+    { value: 111, label: "dindayalupadhyay" },
+    { value: 222, label: "kundanlalgupta" },
+    { value: 333, label: "rashtramatakasturba" },
+  ]);
+
   function refreshPage() {
     window.location.reload(false);
   }
@@ -75,9 +81,49 @@ const Searchform = ({ searchText }) => {
 
   return (
     <div>
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <input
+          type="text"
+          placeholder="Search by book and author name"
+          onChange={onChangevalue}
+        />
+        <button
+          style={{
+            marginLeft: "1rem",
+            transition: "all 0.3s ease 0s",
+            padding: "0.6rem",
+            borderRadius: "0.2rem",
+            cursor: "pointer",
+          }}
+          type="submit"
+        >
+          Search
+        </button>
+
+        <a
+          style={{
+            marginLeft: "1rem",
+            transition: "all 0.3s ease 0s",
+            padding: "0.6rem",
+            borderRadius: "0.2rem",
+            cursor: "pointer",
+          }}
+          onClick={refreshPage}
+        >
+          <span style={{ color: "red" }}>Reset</span>
+        </a>
+      </form>
+
       <br />
       <div className="row">
-        <div className="col-md-12">
+        <div className="col-md-12 filter-row">
           <div className="col-md-3">
             <Select
               title="Genre"
@@ -138,6 +184,9 @@ const Searchform = ({ searchText }) => {
             />
           </div>
 
+          <br />
+          <br />
+
           <div className="col-md-3">
             <Select
               title="Formats"
@@ -152,50 +201,25 @@ const Searchform = ({ searchText }) => {
               }
             />
           </div>
+
+          <div className="col-md-3">
+            <Select
+              title="Library"
+              placeholder="Select Library"
+              options={
+                library
+                  ? library.map((genre, i) => ({
+                      label: genre.label,
+                      value: genre.id,
+                    }))
+                  : []
+              }
+            />
+          </div>
         </div>
       </div>
 
       <br />
-
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <input
-          type="text"
-          placeholder="Search by book and author name"
-          onChange={onChangevalue}
-        />
-        <button
-          style={{
-            marginLeft: "1rem",
-            transition: "all 0.3s ease 0s",
-            padding: "0.6rem",
-            borderRadius: "0.2rem",
-            cursor: "pointer",
-          }}
-          type="submit"
-        >
-          Search
-        </button>
-
-        <a
-          style={{
-            marginLeft: "1rem",
-            transition: "all 0.3s ease 0s",
-            padding: "0.6rem",
-            borderRadius: "0.2rem",
-            cursor: "pointer",
-          }}
-          onClick={refreshPage}
-        >
-          <span style={{ color: "red" }}>Reset</span>
-        </a>
-      </form>
       <div
         id="popup1"
         class={showValidTextModal ? "overlay modal-active" : "overlay"}
