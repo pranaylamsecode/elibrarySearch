@@ -10,7 +10,9 @@ const Searchform = ({ searchText }) => {
   const [publishers, setPublisher] = useState([]);
   const [languages, setLanguage] = useState([]);
   const [formats, setFormat] = useState([]);
-
+  function refreshPage() {
+    window.location.reload(false);
+  }
   useEffect(() => {
     const fetchGenre = async () => {
       const resources = await axios.get(
@@ -180,6 +182,19 @@ const Searchform = ({ searchText }) => {
         >
           Search
         </button>
+
+        <a
+          style={{
+            marginLeft: "1rem",
+            transition: "all 0.3s ease 0s",
+            padding: "0.6rem",
+            borderRadius: "0.2rem",
+            cursor: "pointer",
+          }}
+          onClick={refreshPage}
+        >
+          <span style={{ color: "red" }}>Reset</span>
+        </a>
       </form>
       <div
         id="popup1"
