@@ -195,7 +195,7 @@ const Searchform = ({ searchText }) => {
                 formats
                   ? formats.map((genre, i) => ({
                       label: genre.label,
-                      value: genre.id,
+                      value: genre.value,
                     }))
                   : []
               }
