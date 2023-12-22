@@ -35,6 +35,14 @@ const Book = (props) => {
     var site_name_image_path = `https://rashtramatakasturba.smartcitylibrary.com/uploads/books/thumbnail/${image}`;
   }
 
+  if (library_id == "111") {
+    var library_name = "dindayalupadhyay";
+  } else if (library_id == "222") {
+    var library_name = "kundanlalgupta";
+  } else {
+    var library_name = "rashtramatakasturba";
+  }
+
   return (
     <section key={id} className="loading-card">
       <div>
@@ -78,10 +86,8 @@ const Book = (props) => {
         </div>
 
         <div>
-          {publisher && (
+          {library_name && (
             <h5 style={{ paddingBottom: "1rem", color: "black" }}>
-              {" "}
-              Published by:{" "}
               <span
                 style={{
                   fontWeight: "bold",
@@ -89,7 +95,7 @@ const Book = (props) => {
                 }}
               >
                 {" "}
-                {publisher}{" "}
+                {library_name}{" "}
               </span>
             </h5>
           )}

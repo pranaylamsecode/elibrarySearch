@@ -10,7 +10,8 @@ const BookDetails = () => {
   const [details, setDetails] = useState([]);
   const [prevLimit, setPrevLimit] = useState(10);
   const [prevSkip, setPrevSkip] = useState(0);
-
+  const [genre, setGenre] = useState(18);
+  const [library_id, setLibraryId] = useState(0);
   const [term, setTerm] = useState("");
 
   const [isLoading, setIsLoading] = useState(true);
@@ -19,7 +20,7 @@ const BookDetails = () => {
     const fetchDetails = async () => {
       setIsLoading(true);
       const resources = await axios.get(
-        `https://dindayalupadhyay.smartcitylibrary.com/api/v1/books?order_by=created_at&direction=desc&limit=10&skip=0&search=${term}`
+        `https://dindayalupadhyay.smartcitylibrary.com/api/v1/books?order_by=created_at&direction=desc&limit=10&skip=0&search=${term}&genre=${genre}&library_id=${library_id}`
       );
       setDetails(resources.data.data);
       setIsLoading(false);
@@ -32,7 +33,7 @@ const BookDetails = () => {
     setPrevSkip(prevSkip + 10);
 
     const resources = await axios.get(
-      `https://dindayalupadhyay.smartcitylibrary.com/api/v1/books?order_by=created_at&direction=desc&limit=${prevLimit}&skip=${prevSkip}&search=${term}`
+      `https://dindayalupadhyay.smartcitylibrary.com/api/v1/books?order_by=created_at&direction=desc&limit=${prevLimit}&skip=${prevSkip}&search=${term}&genre=${genre}&library_id=${library_id}`
     );
     setDetails((oldDetails) => [...oldDetails, ...resources.data.data]);
   };
