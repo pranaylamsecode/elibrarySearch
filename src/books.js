@@ -22,7 +22,7 @@ const BookDetails = () => {
   const [publishers, setPublisher] = useState([]);
   const [languages, setLanguage] = useState([]);
   const [formats, setFormat] = useState([]);
-  const [searchText, setsearchText] = useState([]);
+  const [searchText, setsearchText] = useState("");
   const [library, setLibrary] = useState([
     { value: 111, label: "dindayalupadhyay" },
     { value: 222, label: "kundanlalgupta" },
@@ -87,17 +87,13 @@ const BookDetails = () => {
       setShowValidTextModal(true);
       return;
     }
-    searchText(text);
+    /* searchText(text); */
   };
 
   const onChangevalue = (e) => {
     e.preventDefault();
-    setText(e.target.value);
-    searchText(e.target.value);
-    if (e.target.value === "") {
-      setText("");
-      searchText("");
-    }
+
+    setTerm(e.target.value);
   };
 
   const filterformGenre = (e) => {
