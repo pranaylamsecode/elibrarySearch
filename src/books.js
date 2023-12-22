@@ -125,8 +125,9 @@ const BookDetails = () => {
   useEffect(() => {
     const fetchDetails = async () => {
       setIsLoading(true);
+
       const resources = await axios.get(
-        `https://dindayalupadhyay.smartcitylibrary.com/api/v1/books?order_by=created_at&direction=desc&limit=10&skip=0&search=${term}&genre=${formgenre}&library_id=${formlibrary_id}&author=${formauthors}&publisher=${formpublishers}&language=${formlanguages}&format=${formformats}`
+        `https://dindayalupadhyay.smartcitylibrary.com/api/v1/books?order_by=created_at&direction=desc&limit=${prevLimit}&skip=${prevSkip}&search=${term}&genre=${formgenre}&library_id=${formlibrary_id}&author=${formauthors}&publisher=${formpublishers}&language=${formlanguages}&format=${formformats}`
       );
       setDetails(resources.data.data);
       setIsLoading(false);
@@ -147,7 +148,7 @@ const BookDetails = () => {
     setPrevSkip(prevSkip + 10);
 
     const resources = await axios.get(
-      `https://dindayalupadhyay.smartcitylibrary.com/api/v1/books?order_by=created_at&direction=desc&limit=10&skip=0&search=${term}&genre=${formgenre}&library_id=${formlibrary_id}&author=${formauthors}&publisher=${formpublishers}&language=${formlanguages}&format=${formformats}`
+      `https://dindayalupadhyay.smartcitylibrary.com/api/v1/books?order_by=created_at&direction=desc&limit=${prevLimit}&skip=${prevSkip}&search=${term}&genre=${formgenre}&library_id=${formlibrary_id}&author=${formauthors}&publisher=${formpublishers}&language=${formlanguages}&format=${formformats}`
     );
     setDetails((oldDetails) => [...oldDetails, ...resources.data.data]);
   };
