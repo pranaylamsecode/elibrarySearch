@@ -45,25 +45,25 @@ const BookDetails = () => {
   useEffect(() => {
     const fetchGenre = async () => {
       const resources = await axios.get(
-        `https://dindayalupadhyay.smartcitylibrary.com/api/v1/genres?order_by=name&direction=asc`
+        `http://elibrarymix.test2/api/v1/genres?order_by=name&direction=asc`
       );
       setGenre(resources.data.data);
     };
     const fetchAuthor = async () => {
       const resources = await axios.get(
-        `https://dindayalupadhyay.smartcitylibrary.com/api/v1/authors?order_by=first_name&direction=asc`
+        `http://elibrarymix.test2/api/v1/authors?order_by=first_name&direction=asc`
       );
       setAuthor(resources.data.data);
     };
     const fetchPublisher = async () => {
       const resources = await axios.get(
-        `https://dindayalupadhyay.smartcitylibrary.com/api/v1/publishers?order_by=name&direction=asc`
+        `http://elibrarymix.test2/api/v1/publishers?order_by=name&direction=asc`
       );
       setPublisher(resources.data.data);
     };
     const fetchLanguage = async () => {
       const resources = await axios.get(
-        `https://dindayalupadhyay.smartcitylibrary.com/api/b1/book-languages?order_by=language_name&direction=asc`
+        `http://elibrarymix.test2/api/b1/book-languages?order_by=language_name&direction=asc`
       );
       setLanguage(resources.data.data);
     };
@@ -121,9 +121,11 @@ const BookDetails = () => {
   useEffect(() => {
     const fetchDetails = async () => {
       setIsLoading(true);
+      setPrevLimit(10);
+      setPrevSkip(0);
 
       const resources = await axios.get(
-        `https://dindayalupadhyay.smartcitylibrary.com/api/v1/books?order_by=created_at&direction=desc&limit=${prevLimit}&skip=${prevSkip}&search=${term}&genre=${formgenre}&library_id=${formlibrary_id}&author=${formauthors}&publisher=${formpublishers}&language=${formlanguages}&format=${formformats}`
+        `http://elibrarymix.test2/api/v1/books?order_by=name&direction=asc&limit=${prevLimit}&skip=${prevSkip}&search=${term}&genre=${formgenre}&library_id=${formlibrary_id}&author=${formauthors}&publisher=${formpublishers}&language=${formlanguages}&format=${formformats}`
       );
       setDetails(resources.data.data);
       setIsLoading(false);
@@ -144,7 +146,7 @@ const BookDetails = () => {
     setPrevSkip(prevSkip + 10);
 
     const resources = await axios.get(
-      `https://dindayalupadhyay.smartcitylibrary.com/api/v1/books?order_by=created_at&direction=desc&limit=${prevLimit}&skip=${prevSkip}&search=${term}&genre=${formgenre}&library_id=${formlibrary_id}&author=${formauthors}&publisher=${formpublishers}&language=${formlanguages}&format=${formformats}`
+      `http://elibrarymix.test2/api/v1/books?order_by=name&direction=asc&limit=${prevLimit}&skip=${prevSkip}&search=${term}&genre=${formgenre}&library_id=${formlibrary_id}&author=${formauthors}&publisher=${formpublishers}&language=${formlanguages}&format=${formformats}`
     );
     setDetails((oldDetails) => [...oldDetails, ...resources.data.data]);
   };
