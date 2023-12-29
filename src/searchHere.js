@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import Suggestions from "./Suggestions";
 
-const { API_KEY } = process.env;
-const API_URL = ``;
-
 class searchHere extends Component {
   state = {
     query: "",
