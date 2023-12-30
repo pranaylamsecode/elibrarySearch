@@ -63,10 +63,6 @@ const BookDetails = () => {
     /*  */
   }, [term]);
 
-  const handleLinkClick = (e) => {
-    // Update the state using the setter function
-    setTerm(e);
-  };
   useEffect(() => {
     const fetchGenre = async () => {
       const resources = await axios.get(
