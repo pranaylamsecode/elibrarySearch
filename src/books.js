@@ -54,7 +54,7 @@ const BookDetails = () => {
   useEffect(() => {
     if (term !== "") {
       fetch(
-        `dindayalupadhyay.smartcitylibrary.com/api/v1/books-name?search=${term}&limit=5`
+        `https://dindayalupadhyay.smartcitylibrary.com/api/v1/books-name?search=${term}&limit=5`
       )
         .then((res) => res.json())
         .then((data) => setoptionsuggestions(data.data));
