@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import logo from "./img/Book.svg";
 
@@ -6,11 +6,10 @@ import Footer from "./footer";
 import Book from "./book";
 import LoadingCard from "./loadingCard";
 import Select from "react-select";
-import SearchBookLogic from "./searchHere";
 
 const BookDetails = () => {
   /* variable for search */
-
+  const inputRef = useRef(null);
   const [details, setDetails] = useState([]);
   const [prevLimit, setPrevLimit] = useState(10);
   const [prevSkip, setPrevSkip] = useState(0);
@@ -36,6 +35,7 @@ const BookDetails = () => {
   const [formpublishers, setformpublishers] = useState(0);
   const [formlanguages, setformlanguages] = useState(0);
   const [formformats, setformformats] = useState(0);
+  const [optionsuggestions, setoptionsuggestions] = useState([]);
 
   const [formlibrary_id, setLibraryId] = useState(0);
 
@@ -43,6 +43,30 @@ const BookDetails = () => {
     window.location.reload(false);
   }
 
+  const handleButtonClick = (e) => {
+    // Access and set the value of the input field using the ref
+    if (inputRef.current) {
+      inputRef.current.value = "";
+      inputRef.current.value = e;
+    }
+    setTerm(e);
+  };
+  useEffect(() => {
+    if (term !== "") {
+      fetch(
+        `dindayalupadhyay.smartcitylibrary.com/api/v1/books-name?search=${term}&limit=5`
+      )
+        .then((res) => res.json())
+        .then((data) => setoptionsuggestions(data.data));
+    }
+
+    /*  */
+  }, [term]);
+
+  const handleLinkClick = (e) => {
+    // Update the state using the setter function
+    setTerm(e);
+  };
   useEffect(() => {
     const fetchGenre = async () => {
       const resources = await axios.get(
@@ -179,11 +203,22 @@ const BookDetails = () => {
           <input
             type="text"
             placeholder="Search by book and author name"
+            ref={inputRef}
             onChange={onChangevalue}
           />
+          <u>
+            {optionsuggestions?.map((r) => (
+              <li key={r.id}>
+                <a href="#" onClick={() => handleButtonClick(r.name)}>
+                  {r.name}
+                </a>
+              </li>
+            ))}
+          </u>
+          {/*  <Suggestions results={optionsuggestions} /> */}
           {/* search logic new  */}
           <br />
-          <SearchBookLogic />
+          {/* <SearchBookLogic /> */}
           <button
             style={{
               marginLeft: "1rem",

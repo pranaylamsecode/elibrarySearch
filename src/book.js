@@ -16,7 +16,7 @@ const Book = (props) => {
       },
     },
   };
-  console.log(props);
+
   let { name, authors_name, publisher_id, image, library_id, id } = props;
 
   //setting up default values for volume info data
