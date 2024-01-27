@@ -5,7 +5,7 @@ import "../src/sass/style.css";
 const Header = () => {
   return (
     <>
-      <div>
+      {/* <div>
         <strong>
           <h2
             className="heading-name"
@@ -23,7 +23,7 @@ const Header = () => {
             E Library
           </h2>
         </strong>
-      </div>
+      </div> */}
     </>
   );
 };
