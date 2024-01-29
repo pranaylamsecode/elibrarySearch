@@ -20,139 +20,118 @@ const TreadingBooks = (props) => {
 
   return (
     <section className="case-studies detailTrending">
-            <div className="container">
-                <div className="row grid-margin">
-                    <div className="col-12 text-center common-heading pb-5">
-                        <h2
-                            style={{
-                                fontSize: "3rem",
-                                fontFamily: "Philosopher",
-                            }}
-                        >
-                            Trendings Books
-                        </h2>
-                    </div>
-                    {details1.length !== 0 ? (
-                        details1.slice(0, 4).map((book, i) => {
-                            if (book.library_id == "111") {
-                                var site_name_image_path = `https://dindayalupadhyay.smartcitylibrary.com/uploads/books/thumbnail/${book.image}`;
-                            } else if (book.library_id == "222") {
-                                var site_name_image_path = `https://kundanlalgupta.smartcitylibrary.com/uploads/books/thumbnail/${book.image}`;
-                            } else {
-                                var site_name_image_path = `https://rashtramatakasturba.smartcitylibrary.com/uploads/books/thumbnail/${book.image}`;
+      <div className="container">
+        <div className="row grid-margin">
+          <div className="col-12 text-center common-heading pb-5">
+            <h2
+              style={{
+                fontSize: "3rem",
+                fontFamily: "Philosopher",
+              }}
+            >
+              Trendings Books
+            </h2>
+          </div>
+          {details1.length !== 0 ? (
+            details1.slice(0, 4).map((book, i) => {
+              if (book.library_id == "111") {
+                var site_name_image_path = `https://dindayalupadhyay.smartcitylibrary.com/uploads/books/thumbnail/${book.image}`;
+              } else if (book.library_id == "222") {
+                var site_name_image_path = `https://kundanlalgupta.smartcitylibrary.com/uploads/books/thumbnail/${book.image}`;
+              } else {
+                var site_name_image_path = `https://rashtramatakasturba.smartcitylibrary.com/uploads/books/thumbnail/${book.image}`;
+              }
+              return (
+                <div
+                  key={i}
+                  className="col-12 col-md-6 col-lg-3 stretch-card mb-3 mb-lg-0"
+                  // data-aos="zoom-in"
+                >
+                  <div className="card color-cards">
+                    <div className="card-body p-0">
+                      <div
+                        className="text-center card-contents"
+                        style={{
+                          backgroundColor: "#f2f2f2",
+                        }}
+                        // onClick={() =>
+                        //     handleDetails(
+                        //         `${book.name}/${book.id}/${book.library_id}`
+                        //     )
+                        // }
+                      >
+                        <div className="card-image">
+                          <img
+                            src={
+                              book.image ? site_name_image_path : defaultBook
                             }
-                            return (
-                                <div
-                                    key={i}
-                                    className="col-12 col-md-6 col-lg-3 stretch-card mb-3 mb-lg-0"
-                                    // data-aos="zoom-in"
-                                >
-                                    <div className="card color-cards">
-                                        <div className="card-body p-0">
-                                            <div
-                                                className="text-center card-contents"
-                                                style={{
-                                                    backgroundColor: "#f2f2f2",
-                                                }}
-                                                // onClick={() =>
-                                                //     handleDetails(
-                                                //         `${book.name}/${book.id}/${book.library_id}`
-                                                //     )
-                                                // }
-                                            >
-                                                <div className="card-image">
-                                                    <img
-                                                        src={
-                                                            book.image
-                                                                ? site_name_image_path
-                                                                : defaultBook
-                                                        }
-                                                        className="case-studies-card-img"
-                                                        alt=""
-                                                        onError={({
-                                                            currentTarget,
-                                                        }) => {
-                                                            currentTarget.onerror =
-                                                                null; // prevents looping
-                                                            currentTarget.src =
-                                                                defaultBook;
-                                                        }}
-                                                    />
-                                                </div>
-                                                <div className="card-details text-center pt-4">
-                                                    <h6 className="m-0 pb-1">
-                                                        {book.name
-                                                            ? book.name
-                                                            : "NA"}
-                                                    </h6>
-                                                </div>
-                                                <div className="card-desc-box d-flex align-items-center justify-content-around">
-                                                    <div
-                                                        style={{
-                                                            width: "fit-content",
-                                                            padding: "auto 5px",
-                                                        }}
-                                                    >
-                                                        <div className="d-flex flex-column align-items-center library_badge">
-                                                            <span className="badge badge-info">
-                                                                {book.items
-                                                                    .length &&
-                                                                book.items[0]
-                                                                    .format ===
-                                                                    3
-                                                                    ? "E-Book"
-                                                                    : "Book"}
-                                                            </span>
-
-                                                            {book.library_id ===
-                                                            111 ? (
-                                                                <span className="badge badge-danger">
-                                                                    Dindayal
-                                                                    Upadhyay
-                                                                    Library
-                                                                </span>
-                                                            ) : book.library_id ===
-                                                              222 ? (
-                                                                <span className="badge badge-danger">
-                                                                    Kundanlal
-                                                                    Gupta
-                                                                    Library
-                                                                </span>
-                                                            ) : (
-                                                                <span className="badge badge-danger">
-                                                                    Rashtramata
-                                                                    Kasturba
-                                                                    Library
-                                                                </span>
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                    <button
-                                                        className="btn btn-white frontend-btn"
-                                                        // onClick={() =>
-                                                        //     handleDetails(
-                                                        //         `${book.name}/${book.id}/${book.library_id}`
-                                                        //     )
-                                                        // }
-                                                    >
-                                                        <span>Read More</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })
-                    ) : (
-                        <div className="spinner">
-                            <img src="/public/images/301.gif" />
+                            className="case-studies-card-img"
+                            alt=""
+                            onError={({ currentTarget }) => {
+                              currentTarget.onerror = null; // prevents looping
+                              currentTarget.src = defaultBook;
+                            }}
+                          />
                         </div>
-                    )}
+                        <div className="card-details text-center pt-4">
+                          <h6 className="m-0 pb-1">
+                            {book.name ? book.name : "NA"}
+                          </h6>
+                        </div>
+                        <div className="card-desc-box d-flex align-items-center justify-content-around">
+                          <div
+                            style={{
+                              width: "fit-content",
+                              padding: "auto 5px",
+                            }}
+                          >
+                            <div className="d-flex flex-column align-items-center library_badge">
+                              <span className="badge badge-info">
+                                {book.items.length && book.items[0].format === 3
+                                  ? "E-Book"
+                                  : "Book"}
+                              </span>
+
+                              {book.library_id === 111 ? (
+                                <span className="badge badge-danger">
+                                  Dindayal Upadhyay Library
+                                </span>
+                              ) : book.library_id === 222 ? (
+                                <span className="badge badge-danger">
+                                  Kundanlal Gupta Library
+                                </span>
+                              ) : (
+                                <span className="badge badge-danger">
+                                  Rashtramata Kasturba Library
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <button
+                            className="btn btn-white frontend-btn"
+                            // onClick={() =>
+                            //     handleDetails(
+                            //         `${book.name}/${book.id}/${book.library_id}`
+                            //     )
+                            // }
+                          >
+                            <span>Read More</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              );
+            })
+          ) : (
+            <div className="spinner">
+              <img src="/public/images/301.gif" />
             </div>
-        </section>
-    
+          )}
+        </div>
+      </div>
+    </section>
   );
 };
 
@@ -187,19 +166,25 @@ const BookDetails = (props) => {
     },
   ];
 
-  const libraryOnChange = (e) => {
-    setLibrary_id(e.target.value);
-    // const book1 = details.filter((item) => item.book.library_id === e.target.value);
-    // console.log(book1);
-  };
+  // const itemsValue =
+  //   AllEbooks.length && Ebooks.length
+  //     ? AllEbooks
+  //       .filter((item, i) =>
 
+  //         Ebooks.find(
+  //           (esub) =>
+  //             item.id === esub.ebook_id &&
+  //             item.library_id === esub.library_id &&
+  //             esub.email === userEmail
+  //         )
+  //       )
 
-  
+  //     : [];
 
   useEffect(() => {
     const fetchDetails = async () => {
       const resources = await axios.get(
-        `https://dindayalupadhyay.smartcitylibrary.com/api/v1/search-books?id=61&search_by_book=true&library_id=${library_id}`
+        `https://dindayalupadhyay.smartcitylibrary.com/api/v1/search-books?id=766&search_by_book=true&library_id=${library_id}`
       );
 
       setDetails(resources.data.data);
@@ -213,19 +198,6 @@ const BookDetails = (props) => {
   // const length1=details[0]?.ebooksubscriptions.length;
   // console.log(length1);
   // console.log("hy", details[0]?.book?.library_id);
-
-  
-
-  
-
- 
-    
-    
-  
-
-
-
-
 
   var settings = {
     dots: false,
@@ -268,6 +240,68 @@ const BookDetails = (props) => {
   //axios
 
   //addet npm i react-slider  use this to show slider
+
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [status, setStatus] = useState(false);
+
+  const libraryOnChange = (e) => {
+    setLibrary_id(e.target.value);
+    // const value=e.target.value;
+    setStatus(true);
+
+    // console.log(value);
+    // const filtered = details.filter((item) => item.book.library_id===value);
+    // console.log(filtered);
+    // setFilteredUsers(filtered);
+  };
+
+  // console.log(filteredUsers);
+  const library = details.map((item) => item.book.library_id);
+  console.log("library", library);
+
+  const [filterbook, setFilterBook] = useState([]);
+
+  useEffect(() => {
+    if (status === true) {
+      let filteredBooks = [...details];
+      // console.log('filteredBooks',filteredBooks);
+      // console.log('libraryid', library_id);
+
+      if (library_id === 111) {
+        filteredBooks = details.filter(
+          (item) => item[0].book.library_id === 111
+        );
+        setStatus(false);
+      } else if (library_id === 222) {
+        filteredBooks = details.filter(
+          (item) => item[1].book.library_id === 222
+        );
+        setStatus(false);
+      } else if (library_id === 333) {
+        filteredBooks = details.filter(
+          (item) => item[1].book.library_id === 333
+        );
+        setStatus(false);
+      }
+
+      setFilterBook(filteredBooks);
+      // setInitialDataFetched(false);
+    }
+  }, [status]);
+
+  console.log("final", filterbook);
+
+  let filteredUserNames = details
+    .filter(
+      (details) =>
+        details.book.library_id === 111 ||
+        details.book.library_id === 222 ||
+        details.book.library_id === 333
+    )
+
+    .map((details) => details.book.library_id);
+
+  console.log("disable", filteredUserNames);
 
   return (
     <div>
@@ -441,9 +475,7 @@ const BookDetails = (props) => {
                             <option
                               key={library.value}
                               value={library.value}
-                              enabled={details.some(
-                                (book) => book.book.library_id === library.value
-                              )}
+                              disabled={filteredUserNames === library.value}
                             >
                               {library.label}
                             </option>
@@ -525,6 +557,9 @@ const BookDetails = (props) => {
                     ""
                   )}
                 </div>
+
+
+                
               </div>
             </div>
           </div>
