@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Slider from "react-slick";
 import defaultBook from "./img/defaultBook.png";
+// import AOS from "aos";
 
 const TreadingBooks = (props) => {
   const [details1, setDetails1] = useState([]);
@@ -19,234 +20,139 @@ const TreadingBooks = (props) => {
 
   return (
     <section className="case-studies detailTrending">
-      <div className="container">
-        <div className="row grid-margin">
-          <div className="col-12 text-center common-heading pb-5">
-            <h2
-              style={{
-                fontSize: "3rem",
-                fontFamily: "Philosopher",
-              }}
-            >
-              Trendings Books
-            </h2>
-          </div>
-
-          {/* <div>hy</div> */}
-          {details1.length !== 0 ? (
-            details1.map((book, i) => {
-              if (book.library_id == "111") {
-                var site_name_image_path = `https://dindayalupadhyay.smartcitylibrary.com/uploads/books/thumbnail/${book.image}`;
-              } else if (book.library_id == "222") {
-                var site_name_image_path = `https://kundanlalgupta.smartcitylibrary.com/uploads/books/thumbnail/${book.image}`;
-              } else {
-                var site_name_image_path = `https://rashtramatakasturba.smartcitylibrary.com/uploads/books/thumbnail/${book.image}`;
-              }
-              return (
-                <div
-                //   key={i}
-                  className="col-12 col-md-6 col-lg-3 stretch-card mb-3 mb-lg-0"
-                  data-aos="zoom-in"
-                >
-                  <div className="card color-cards">
-                    <div className="card-body p-0">
-                      <div
-                        className="text-center card-contents"
-                        style={{
-                          backgroundColor: "#f2f2f2",
-                        }}
-                        // onClick={() =>
-                        //   handleDetails(
-                        //     `${book.name}/${book.id}/${book.library_id}`
-                        //   )
-                        // }
-                      >
-                        <div className="card-image">
-                          <img
-                            src={
-                              book.image ? site_name_image_path : defaultBook
-                            }
-                            className="case-studies-card-img"
-                            alt=""
-                            onError={({ currentTarget }) => {
-                              currentTarget.onerror = null; // prevents looping
-                              currentTarget.src = defaultBook;
-                            }}
-                          />
-                        </div>
-                        <div className="card-details text-center pt-4">
-                          <h6 className="m-0 pb-1">
-                            {book.name ? book.name : "NA"}
-                          </h6>
-                        </div>
-                        <div className="card-desc-box d-flex align-items-center justify-content-around">
-                          <div
+            <div className="container">
+                <div className="row grid-margin">
+                    <div className="col-12 text-center common-heading pb-5">
+                        <h2
                             style={{
-                              width: "fit-content",
-                              padding: "auto 5px",
+                                fontSize: "3rem",
+                                fontFamily: "Philosopher",
                             }}
-                          >
-                            <div className="d-flex flex-column align-items-center library_badge">
-                              <span className="badge badge-info">
-                                {book.items.length && book.items[0].format === 3
-                                  ? "E-Book"
-                                  : "Book"}
-                              </span>
-
-                              {book.library_id === 111 ? (
-                                <span className="badge badge-danger">
-                                  Dindayal Upadhyay Library
-                                </span>
-                              ) : book.library_id === 222 ? (
-                                <span className="badge badge-danger">
-                                  Kundanlal Gupta Library
-                                </span>
-                              ) : (
-                                <span className="badge badge-danger">
-                                  Rashtramata Kasturba Library
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                          <button
-                            className="btn btn-white frontend-btn"
-                            // onClick={() =>
-                            //   handleDetails(
-                            //     `${book.name}/${book.id}/${book.library_id}`
-                            //   )
-                            // }
-                          >
-                            <span>Read More</span>
-                          </button>
-                        </div>
-                      </div>
+                        >
+                            Trendings Books
+                        </h2>
                     </div>
-                  </div>
+                    {details1.length !== 0 ? (
+                        details1.slice(0, 4).map((book, i) => {
+                            if (book.library_id == "111") {
+                                var site_name_image_path = `https://dindayalupadhyay.smartcitylibrary.com/uploads/books/thumbnail/${book.image}`;
+                            } else if (book.library_id == "222") {
+                                var site_name_image_path = `https://kundanlalgupta.smartcitylibrary.com/uploads/books/thumbnail/${book.image}`;
+                            } else {
+                                var site_name_image_path = `https://rashtramatakasturba.smartcitylibrary.com/uploads/books/thumbnail/${book.image}`;
+                            }
+                            return (
+                                <div
+                                    key={i}
+                                    className="col-12 col-md-6 col-lg-3 stretch-card mb-3 mb-lg-0"
+                                    // data-aos="zoom-in"
+                                >
+                                    <div className="card color-cards">
+                                        <div className="card-body p-0">
+                                            <div
+                                                className="text-center card-contents"
+                                                style={{
+                                                    backgroundColor: "#f2f2f2",
+                                                }}
+                                                // onClick={() =>
+                                                //     handleDetails(
+                                                //         `${book.name}/${book.id}/${book.library_id}`
+                                                //     )
+                                                // }
+                                            >
+                                                <div className="card-image">
+                                                    <img
+                                                        src={
+                                                            book.image
+                                                                ? site_name_image_path
+                                                                : defaultBook
+                                                        }
+                                                        className="case-studies-card-img"
+                                                        alt=""
+                                                        onError={({
+                                                            currentTarget,
+                                                        }) => {
+                                                            currentTarget.onerror =
+                                                                null; // prevents looping
+                                                            currentTarget.src =
+                                                                defaultBook;
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div className="card-details text-center pt-4">
+                                                    <h6 className="m-0 pb-1">
+                                                        {book.name
+                                                            ? book.name
+                                                            : "NA"}
+                                                    </h6>
+                                                </div>
+                                                <div className="card-desc-box d-flex align-items-center justify-content-around">
+                                                    <div
+                                                        style={{
+                                                            width: "fit-content",
+                                                            padding: "auto 5px",
+                                                        }}
+                                                    >
+                                                        <div className="d-flex flex-column align-items-center library_badge">
+                                                            <span className="badge badge-info">
+                                                                {book.items
+                                                                    .length &&
+                                                                book.items[0]
+                                                                    .format ===
+                                                                    3
+                                                                    ? "E-Book"
+                                                                    : "Book"}
+                                                            </span>
+
+                                                            {book.library_id ===
+                                                            111 ? (
+                                                                <span className="badge badge-danger">
+                                                                    Dindayal
+                                                                    Upadhyay
+                                                                    Library
+                                                                </span>
+                                                            ) : book.library_id ===
+                                                              222 ? (
+                                                                <span className="badge badge-danger">
+                                                                    Kundanlal
+                                                                    Gupta
+                                                                    Library
+                                                                </span>
+                                                            ) : (
+                                                                <span className="badge badge-danger">
+                                                                    Rashtramata
+                                                                    Kasturba
+                                                                    Library
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                    <button
+                                                        className="btn btn-white frontend-btn"
+                                                        // onClick={() =>
+                                                        //     handleDetails(
+                                                        //         `${book.name}/${book.id}/${book.library_id}`
+                                                        //     )
+                                                        // }
+                                                    >
+                                                        <span>Read More</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })
+                    ) : (
+                        <div className="spinner">
+                            <img src="/public/images/301.gif" />
+                        </div>
+                    )}
                 </div>
-              );
-            })
-          ) : (
-            <div className="spinner">
-              <img src="/public/images/301.gif" />
             </div>
-          )}
-        </div>
-      </div>
-    </section>
-    // <section className="case-studies detailTrending">
-    //   <div className="container">
-    //     <div className="row grid-margin">
-    //       <div className="col-12 text-center common-heading pb-5">
-    //         <h2
-    //           style={{
-    //             fontSize: "3rem",
-    //             fontFamily: "Philosopher",
-    //           }}
-    //         >
-    //           Trendings Books
-    //         </h2>
-    //       </div>
-    //       {details1.length !== 0 ? (
-    //         details1.slice(0, 4).map((book, i) => {
-    //           if (book.library_id == "111") {
-    //             var site_name_image_path = `https://dindayalupadhyay.smartcitylibrary.com/uploads/books/thumbnail/${book.image}`;
-    //           } else if (book.library_id == "222") {
-    //             var site_name_image_path = `https://kundanlalgupta.smartcitylibrary.com/uploads/books/thumbnail/${book.image}`;
-    //           } else {
-    //             var site_name_image_path = `https://rashtramatakasturba.smartcitylibrary.com/uploads/books/thumbnail/${book.image}`;
-    //           }
-    //           return (
-    //             <div
-    //               key={i}
-    //               className="col-12 col-md-6 col-lg-3 stretch-card mb-3 mb-lg-0"
-    //               data-aos="zoom-in"
-    //             >
-    //               <div className="card color-cards">
-    //                 <div className="card-body p-0">
-    //                   <div
-    //                     className="text-center card-contents"
-    //                     style={{
-    //                       backgroundColor: "#f2f2f2",
-    //                     }}
-    //                     // onClick={() =>
-    //                     //     handleDetails(
-    //                     //         `${book.name}/${book.id}/${book.library_id}`
-    //                     //     )
-    //                     // }
-    //                   >
-    //                     <div className="card-image">
-    //                       <img
-    //                         src={
-    //                           book.image ? site_name_image_path : defaultBook
-    //                         }
-    //                         className="case-studies-card-img"
-    //                         alt=""
-    //                         onError={({ currentTarget }) => {
-    //                           currentTarget.onerror = null; // prevents looping
-    //                           currentTarget.src = defaultBook;
-    //                         }}
-    //                       />
-    //                     </div>
-
-    //                     <div className="card-details text-center pt-4">
-    //                       <h6 className="m-0 pb-1">
-    //                         {book.name ? book.name : "NA"}
-    //                       </h6>
-    //                     </div>
-    //                     <div className="card-desc-box d-flex align-items-center justify-content-around">
-    //                       <div
-    //                         style={{
-    //                           width: "fit-content",
-    //                           padding: "auto 5px",
-    //                         }}
-    //                       >
-    //                         <div className="d-flex flex-column align-items-center library_badge">
-    //                           <span className="badge badge-info">
-    //                             {book.items.length && book.items[0].format === 3
-    //                               ? "E-Book"
-    //                               : "Book"}
-    //                           </span>
-
-    //                           {book.library_id === 111 ? (
-    //                             <span className="badge badge-danger">
-    //                               Dindayal Upadhyay Library
-    //                             </span>
-    //                           ) : book.library_id === 222 ? (
-    //                             <span className="badge badge-danger">
-    //                               Kundanlal Gupta Library
-    //                             </span>
-    //                           ) : (
-    //                             <span className="badge badge-danger">
-    //                               Rashtramata Kasturba Library
-    //                             </span>
-    //                           )}
-    //                         </div>
-    //                       </div>
-    //                       <button
-    //                         className="btn btn-white frontend-btn"
-    //                         // onClick={() =>
-    //                         //     handleDetails(
-    //                         //         `${book.name}/${book.id}/${book.library_id}`
-    //                         //     )
-    //                         // }
-    //                       >
-    //                         <span>Read More</span>
-    //                       </button>
-    //                     </div>
-    //                   </div>
-    //                 </div>
-    //               </div>
-    //             </div>
-    //           );
-    //         })
-    //       ) : (
-    //         <div className="spinner">
-    //           <img src="/public/images/301.gif" />
-    //         </div>
-    //       )}
-    //     </div>
-    //   </div>
-    // </section>
+        </section>
+    
   );
 };
 
@@ -283,24 +189,43 @@ const BookDetails = (props) => {
 
   const libraryOnChange = (e) => {
     setLibrary_id(e.target.value);
+    // const book1 = details.filter((item) => item.book.library_id === e.target.value);
+    // console.log(book1);
   };
+
+
+  
 
   useEffect(() => {
     const fetchDetails = async () => {
       const resources = await axios.get(
-        `https://dindayalupadhyay.smartcitylibrary.com/api/v1/search-books?id=766&search_by_book=true&library_id=${library_id}`
+        `https://dindayalupadhyay.smartcitylibrary.com/api/v1/search-books?id=61&search_by_book=true&library_id=${library_id}`
       );
 
       setDetails(resources.data.data);
     };
     fetchDetails();
-  }, [library_id]);
+  }, []);
 
-  const status = details.some(
-    (book) => book.book.library_id === libraryStatus.value
-  );
-  console.log(libraryStatus[0].value);
-  console.log("hy", details[0]?.book?.library_id);
+  // const status = details.some(
+  //   (book) => book.book.library_id === libraryStatus.value
+  // );
+  // const length1=details[0]?.ebooksubscriptions.length;
+  // console.log(length1);
+  // console.log("hy", details[0]?.book?.library_id);
+
+  
+
+  
+
+ 
+    
+    
+  
+
+
+
+
 
   var settings = {
     dots: false,
@@ -434,9 +359,7 @@ const BookDetails = (props) => {
 
                   <div className="details_box ">
                     <div className="inner_box">
-                      <p className="detail_type">
-                        {details[0]?.publisher?.name}
-                      </p>
+                      <p className="detail_type">Publisher</p>
                       <p className="detail_image">
                         <i className="fa-solid fa-building-user"></i>
                       </p>
@@ -450,7 +373,7 @@ const BookDetails = (props) => {
 
                   <div className="details_box ">
                     <div className="inner_box">
-                      <p className="detail_type">{details[0]?.book?.isbn} </p>
+                      <p className="detail_type">ISBN </p>
                       <p className="detail_image">
                         <i className="fa-solid fa-barcode"></i>
                       </p>
@@ -540,7 +463,7 @@ const BookDetails = (props) => {
                   </div>
                   <div className="avail_options">
                     <span>
-                      {details[0]?.format === 2 && details[0]?.statuss == 1
+                      {details[0]?.format === 2 && details[0]?.status == 1
                         ? "Paperback(1)"
                         : "Paperback(0)"}
                     </span>
@@ -551,8 +474,8 @@ const BookDetails = (props) => {
                     </span>
                     <span className="available">
                       Ebook(
-                      {details && details[0]?.ebooksubscriptions
-                        ? 20 - details.ebooksubscriptions
+                      {details && details[0]?.ebooksubscriptions.length
+                        ? 20 - details[0]?.ebooksubscriptions.length
                         : 0}
                       )
                     </span>
