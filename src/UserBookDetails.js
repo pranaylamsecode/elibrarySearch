@@ -18,7 +18,6 @@ const TreadingBooks = (props) => {
     fetchDetails();
   }, []);
 
-
   return (
     <section className="case-studies detailTrending">
       <div className="container">
@@ -69,7 +68,7 @@ const TreadingBooks = (props) => {
                             className="case-studies-card-img"
                             alt=""
                             onError={({ currentTarget }) => {
-                              currentTarget.onerror = null; 
+                              currentTarget.onerror = null;
                               currentTarget.src = defaultBook;
                             }}
                           />
@@ -151,6 +150,7 @@ const TreadingBooks = (props) => {
 const BookDetails = (props) => {
   const [details, setDetails] = useState([]);
   const [library_id, setLibrary_id] = useState(111);
+  const [showMore, setShowMore] = useState(false);
 
   const libraryStatus = [
     {
@@ -166,8 +166,6 @@ const BookDetails = (props) => {
       label: "Rashtramata Kasturba Library",
     },
   ];
-
-  
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -222,8 +220,6 @@ const BookDetails = (props) => {
     ],
   };
 
- 
-
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [status, setStatus] = useState(false);
 
@@ -233,11 +229,12 @@ const BookDetails = (props) => {
     // const value=e.target.value;
     setStatus(true);
 
-    const filteredDetails = details.filter(item => item.book.library_id === selectedLibraryId);
+    const filteredDetails = details.filter(
+      (item) => item.book.library_id === selectedLibraryId
+    );
     setFilteredUsers(filteredDetails);
     // setStatus(false);
 
-    
     // const filtered = details.filter((item) => item.book.library_id===value);
     // console.log(filtered);
     // setFilteredUsers(filtered);
@@ -310,300 +307,360 @@ const BookDetails = (props) => {
                   console.log("books", book);
                   return ( */}
           <div className="container">
+            {status ? (
+              <div className="row">
+                <div className="col-md-6 product_img">
+                  <img
+                    src={filteredUsers[0]?.book?.image_path}
+                    className="img-responsive"
+                    width={400}
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null;
+                      currentTarget.src = defaultBook;
+                    }}
+                  />
+                </div>
 
+                <div className="col-md-6 product_content px-4 py-3 rounded-lg">
+                  <h1 className="h1">{filteredUsers[0]?.book?.name}</h1>
+                  <span>Condition 2</span>
 
-            {status?(
-            <div className="row">
-              
-              <div className="col-md-6 product_img">
-             
-                <img
-                  src={filteredUsers[0]?.book?.image_path}
-                  className="img-responsive"
-                  width={400}
-                  onError={({ currentTarget }) => {
-                    currentTarget.onerror = null;
-                    currentTarget.src = defaultBook;
-                  }}
-                />
-              </div>
+                  {filteredUsers[0]?.book?.authors ? (
+                    <p className="author_name">
+                      by{" "}
+                      <span>
+                        {filteredUsers
+                          ? filteredUsers[0]?.book?.authors.map((author) => {
+                              const firstName = author.first_name
+                                ? author.first_name
+                                : "";
+                              const lastName = author.last_name
+                                ? author.last_name
+                                : "";
+                              return firstName + " " + lastName + ", ";
+                            })
+                          : null}
+                      </span>{" "}
+                      (Author)
+                    </p>
+                  ) : (
+                    ""
+                  )}
 
-              <div className="col-md-6 product_content px-4 py-3 rounded-lg">
-                <h1 className="h1">{filteredUsers[0]?.book?.name}</h1>
-                <span>Condition 2</span>
-
-                {filteredUsers[0]?.book?.authors ? (
-                  <p className="author_name">
-                    by{" "}
-                    <span>
-                      {filteredUsers
-                        ? filteredUsers[0]?.book?.authors.map((author) => {
-                            const firstName = author.first_name
-                              ? author.first_name
-                              : "";
-                            const lastName = author.last_name
-                              ? author.last_name
-                              : "";
-                            return firstName + " " + lastName + ", ";
-                          })
-                        : null}
-                    </span>{" "}
-                    (Author)
-                  </p>
-                ) : (
-                  ""
-                )}
-
-                {filteredUsers && filteredUsers[0]?.book?.description ? (
-                  <div className="description">
-                    <div className="inner_description">
+                  {filteredUsers && filteredUsers[0]?.book?.description ? (
+                    <div className="description">
+                      {/* <div className="inner_description">
                       <p>
-                        {filteredUsers && filteredUsers[0]?.book?.description
-                          ? filteredUsers[0]?.book?.description
-                          : ""}
-                      </p>
-                    </div>
-                    <span className="show_more">see more details</span>
+                      {showMore ?
 
-                    {/* <span className="show_less" style="display: none"
+                        (filteredUsers && filteredUsers[0]?.book?.description
+                          ? filteredUsers[0]?.book?.description
+                          : ""):(filteredUsers[0]?.book?.description.substring(0, 250))}
+                      </p>
+                    </div> */}
+                      {
+                        /* <button className="show_more">see more details</button> */
+                        // <button className="btn" onClick={() => setShowMore(!showMore)}>see more details</button>
+                      }
+
+                      {/* <span className="show_less" style="display: none"
                   >see less details &gt;&gt;</span
                 > */}
-                  </div>
-                ) : (
-                  ""
-                )}
-
-                {/* here coursal logic  */}
-                <Slider {...settings}>
-                  <div className="details_box ">
-                    <div className="inner_box">
-                      <p className="detail_type">Language</p>
-                      <p className="detail_image">
-                        <i className="fas fa-globe-europe"></i>
-                      </p>
-                      <p className="detail_des">
-                        {filteredUsers[0]?.language?.language_name}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="details_box ">
-                    <div className="inner_box">
-                      <p className="detail_type">Publisher</p>
-                      <p className="detail_image">
-                        <i className="fa-solid fa-building-user"></i>
-                      </p>
-                      <p className="detail_des">
-                        {filteredUsers[0]?.publisher?.name
-                          ? filteredUsers[0]?.publisher?.name
-                          : "N/A"}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="details_box ">
-                    <div className="inner_box">
-                      <p className="detail_type">ISBN </p>
-                      <p className="detail_image">
-                        <i className="fa-solid fa-barcode"></i>
-                      </p>
-                      <p className="detail_des">
-                        {filteredUsers && filteredUsers[0]?.book?.isbn
-                          ? filteredUsers[0]?.book?.isbn
-                          : "N/A"}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="details_box ">
-                    <div className="inner_box">
-                      <p className="detail_type">Format</p>
-                      <p className="detail_image">
-                        <i className="fa-solid fa-book-open"></i>
-                      </p>
-                      <p className="detail_des">
-                        {filteredUsers[0]?.format === 1
-                          ? "Hardcover"
-                          : filteredUsers[0]?.format === 2
-                          ? "Paperback"
-                          : "E-Book"}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="details_box ">
-                    <div className="inner_box">
-                      <p className="detail_type">Genre</p>
-                      <p className="detail_image">
-                        <i className="fas fa-film"></i>
-                      </p>
-                      <p className="detail_des">
-                        {filteredUsers[0]?.book?.genres[0].name
-                          ? filteredUsers[0]?.book?.genres[0].name
-                          : "N/A"}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="details_box ">
-                    <div className="inner_box">
-                      <p className="detail_type">Edition</p>
-                      <p className="detail_image">
-                        <i className="far fa-address-book"></i>
-                      </p>
-                      <p className="detail_des">{filteredUsers[0]?.edition}</p>
-                    </div>
-                  </div>
-                </Slider>
-
-                <p className="author_name specifications">
-                  <span>Belongs To: </span>
-                  <div className="publisher">
-                    <select
-                      defaultValue={library_id}
-                      className="form-select"
-                      aria-label="Select Library."
-                      onChange={libraryOnChange}
-                    >
-                      {libraryStatus.length ? (
-                        libraryStatus.map((library) => {
-                          const isEnabled = filteredUserNames.includes(library.value);
-                          return (
-                            <option
-                              key={library.value}
-                              value={library.value}
-                              disabled={!isEnabled}
-                            >
-                              {library.label}
-                            </option>
-                          );
-                        })
-                      ) : (
-                        <option value="">No records found.</option>
-                      )}
-                    </select>
-                  </div>
-                </p>
-
-                {/* here coursal logic end  */}
-                <div className="availability">
-                  <div className="label">
-                    <p>Availability</p>
-                  </div>
-                  <div className="avail_options">
-                    <span>
-                      {filteredUsers[0]?.format === 2 && filteredUsers[0]?.status == 1
-                        ? "Paperback(1)"
-                        : "Paperback(0)"}
-                    </span>
-                    <span>
-                      {filteredUsers[0]?.format === 1 && filteredUsers[0]?.status == 1
-                        ? "Hardcover(1)"
-                        : "Hardcover(0)"}
-                    </span>
-                    <span className="available">
-                      Ebook(
-                      {filteredUsers && filteredUsers[0]?.ebooksubscriptions.length
-                        ? 20 - filteredUsers[0]?.ebooksubscriptions.length
-                        : 0}
-                      )
-                    </span>
-                  </div>
-                </div>
-
-                <div class="buttons">
-                  {(filteredUsers[0]?.format === 1 && filteredUsers[0]?.status == 1) ||
-                  (filteredUsers[0]?.format === 2 && filteredUsers[0]?.status == 1) ? (
-                    <button
-                      type="button"
-                      class="frontend-btn btn-warning"
-                      // onClick={(index) =>
-                      //   handleReserve(
-                      //     details[0]?.id,
-                      //     index,
-                      //     details[0]?.book?.library_id
-                      //   )
-                      // }
-                    >
-                      <span> Reserve</span>
-                    </button>
-                  ) : (
-                    ""
-                  )}
-
-                  {filteredUsers[0]?.format === 3 ? (
-                    <div class="buttons">
-                      {filteredUsers ? (
-                        <button
-                          type="button"
-                          className={`frontend-btn btn-warning e-book `}
-                          // onClick={() =>
-                          //   handleSubscribe(
-                          //     book.id,
-                          //     book.book.library_id
-                          //   )
-                          // }
-                        >
-                          <span>Subscribe E-book</span>
-                        </button>
-                      ) : (
-                        "hy not found"
-                      )}
+                      <div className="inner_description">
+                        <p>
+                          {showMore
+                            ? filteredUsers[0][0]?.book?.description
+                            : filteredUsers[0][0]?.book?.description.substring(
+                                0,
+                                200
+                              )}
+                        </p>
+                      </div>
+                      <button
+                        className="btn"
+                        onClick={() => setShowMore(!showMore)}
+                      >
+                        {showMore ? "See less" : "See more"}
+                      </button>
                     </div>
                   ) : (
                     ""
                   )}
-                </div>
 
+                  {/* here coursal logic  */}
+                  <Slider {...settings}>
+                    <div className="details_box ">
+                      <div className="inner_box">
+                        <p className="detail_type">Language</p>
+                        <p className="detail_image">
+                          <i className="fas fa-globe-europe"></i>
+                        </p>
+                        <p className="detail_des">
+                          {filteredUsers[0]?.language?.language_name}
+                        </p>
+                      </div>
+                    </div>
 
-                
-              </div>
-            </div>):
-            
-            
-            
-            
-            
-            (<div className="row">
-              <div className="col-md-6 product_img">
-                <img
-                  src={details[0]?.book?.image_path}
-                  className="img-responsive"
-                  width={400}
-                  onError={({ currentTarget }) => {
-                    currentTarget.onerror = null;
-                    currentTarget.src = defaultBook;
-                  }}
-                />
-              </div>
+                    <div className="details_box ">
+                      <div className="inner_box">
+                        <p className="detail_type">Publisher</p>
+                        <p className="detail_image">
+                          <i className="fa-solid fa-building-user"></i>
+                        </p>
+                        <p className="detail_des">
+                          {filteredUsers[0]?.publisher?.name
+                            ? filteredUsers[0]?.publisher?.name
+                            : "N/A"}
+                        </p>
+                      </div>
+                    </div>
 
-              <div className="col-md-6 product_content px-4 py-3 rounded-lg">
-                <h1 className="h1">{details[0]?.book?.name}</h1>
-                <span>Condition 2</span>
+                    <div className="details_box ">
+                      <div className="inner_box">
+                        <p className="detail_type">ISBN </p>
+                        <p className="detail_image">
+                          <i className="fa-solid fa-barcode"></i>
+                        </p>
+                        <p className="detail_des">
+                          {filteredUsers && filteredUsers[0]?.book?.isbn
+                            ? filteredUsers[0]?.book?.isbn
+                            : "N/A"}
+                        </p>
+                      </div>
+                    </div>
 
-                {details[0]?.book?.authors ? (
-                  <p className="author_name">
-                    by{" "}
-                    <span>
-                      {details
-                        ? details[0]?.book?.authors.map((author) => {
-                            const firstName = author.first_name
-                              ? author.first_name
-                              : "";
-                            const lastName = author.last_name
-                              ? author.last_name
-                              : "";
-                            return firstName + " " + lastName + ", ";
+                    <div className="details_box ">
+                      <div className="inner_box">
+                        <p className="detail_type">Format</p>
+                        <p className="detail_image">
+                          <i className="fa-solid fa-book-open"></i>
+                        </p>
+                        <p className="detail_des">
+                          {filteredUsers[0]?.format === 1
+                            ? "Hardcover"
+                            : filteredUsers[0]?.format === 2
+                            ? "Paperback"
+                            : "E-Book"}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="details_box ">
+                      <div className="inner_box">
+                        <p className="detail_type">Genre</p>
+                        <p className="detail_image">
+                          <i className="fas fa-film"></i>
+                        </p>
+                        <p className="detail_des">
+                          {filteredUsers[0]?.book?.genres[0].name
+                            ? filteredUsers[0]?.book?.genres[0].name
+                            : "N/A"}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="details_box ">
+                      <div className="inner_box">
+                        <p className="detail_type">Edition</p>
+                        <p className="detail_image">
+                          <i className="far fa-address-book"></i>
+                        </p>
+                        <p className="detail_des">
+                          {filteredUsers[0]?.edition}
+                        </p>
+                      </div>
+                    </div>
+                  </Slider>
+
+                  <p className="author_name specifications">
+                    <span>Belongs To: </span>
+                    <div className="publisher">
+                      <select
+                        defaultValue={library_id}
+                        className="form-select"
+                        aria-label="Select Library."
+                        onChange={libraryOnChange}
+                      >
+                        {libraryStatus.length ? (
+                          libraryStatus.map((library) => {
+                            const isEnabled = filteredUserNames.includes(
+                              library.value
+                            );
+                            return (
+                              <option
+                                key={library.value}
+                                value={library.value}
+                                disabled={!isEnabled}
+                              >
+                                {library.label}
+                              </option>
+                            );
                           })
-                        : null}
-                    </span>{" "}
-                    (Author)
+                        ) : (
+                          <option value="">No records found.</option>
+                        )}
+                      </select>
+                    </div>
                   </p>
-                ) : (
-                  ""
-                )}
 
-                {details && details[0]?.book?.description ? (
+                  {/* here coursal logic end  */}
+                  <div className="availability">
+                    <div className="label">
+                      <p>Availability</p>
+                    </div>
+                    <div className="avail_options">
+                      <span>
+                        {filteredUsers[0]?.format === 2 &&
+                        filteredUsers[0]?.status == 1
+                          ? "Paperback(1)"
+                          : "Paperback(0)"}
+                      </span>
+                      <span>
+                        {filteredUsers[0]?.format === 1 &&
+                        filteredUsers[0]?.status == 1
+                          ? "Hardcover(1)"
+                          : "Hardcover(0)"}
+                      </span>
+                      <span className="available">
+                        Ebook(
+                        {filteredUsers &&
+                        filteredUsers[0]?.ebooksubscriptions.length
+                          ? 20 - filteredUsers[0]?.ebooksubscriptions.length
+                          : 0}
+                        )
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="buttons">
+                    {(filteredUsers[0]?.format === 1 &&
+                      filteredUsers[0]?.status == 1) ||
+                    (filteredUsers[0]?.format === 2 &&
+                      filteredUsers[0]?.status == 1) ? (
+                      <button
+                        type="button"
+                        class="frontend-btn btn-warning"
+                        // onClick={(index) =>
+                        //   handleReserve(
+                        //     details[0]?.id,
+                        //     index,
+                        //     details[0]?.book?.library_id
+                        //   )
+                        // }
+                      >
+                        <span> Reserve</span>
+                      </button>
+                    ) : (
+                      ""
+                    )}
+
+                    {filteredUsers[0]?.format === 3 ? (
+                      <div class="buttons">
+                        {filteredUsers ? (
+                          <button
+                            type="button"
+                            className={`frontend-btn btn-warning e-book `}
+                            // onClick={() =>
+                            //   handleSubscribe(
+                            //     book.id,
+                            //     book.book.library_id
+                            //   )
+                            // }
+                          >
+                            <span>Subscribe E-book</span>
+                          </button>
+                        ) : (
+                          "hy not found"
+                        )}
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="row">
+                <div className="col-md-6 product_img">
+                  <img
+                    src={details[0]?.book?.image_path}
+                    className="img-responsive"
+                    width={400}
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null;
+                      currentTarget.src = defaultBook;
+                    }}
+                  />
+                </div>
+
+                <div className="col-md-6 product_content px-4 py-3 rounded-lg">
+                  <h1 className="h1">{details[0]?.book?.name}</h1>
+                  <span>Condition 2</span>
+
+                  {details[0]?.book?.authors ? (
+                    <p className="author_name">
+                      by{" "}
+                      <span>
+                        {details
+                          ? details[0]?.book?.authors.map((author) => {
+                              const firstName = author.first_name
+                                ? author.first_name
+                                : "";
+                              const lastName = author.last_name
+                                ? author.last_name
+                                : "";
+                              return firstName + " " + lastName + ", ";
+                            })
+                          : null}
+                      </span>{" "}
+                      (Author)
+                    </p>
+                  ) : (
+                    ""
+                  )}
+
+                  {details && details[0]?.book?.description ? (
+                    <div className="description">
+                      {/* <div className="inner_description">
+                      <p>
+                      {showMore ?
+
+                        (filteredUsers && filteredUsers[0]?.book?.description
+                          ? filteredUsers[0]?.book?.description
+                          : ""):(filteredUsers[0]?.book?.description.substring(0, 250))}
+                      </p>
+                    </div> */}
+                      {
+                        /* <button className="show_more">see more details</button> */
+                        // <button className="btn" onClick={() => setShowMore(!showMore)}>see more details</button>
+                      }
+
+                      {/* <span className="show_less" style="display: none"
+                  >see less details &gt;&gt;</span
+                > */}
+                      <div className="inner_description">
+                        <p>
+                          {showMore
+                            ? details[0]?.book?.description
+                            : details[0]?.book?.description.substring(
+                                0,
+                                200
+                              )}{" "}
+                          {/* Assuming 200 characters as 4 lines */}
+                        </p>
+                      </div>
+                      <button
+                        className="btn"
+                        onClick={() => setShowMore(!showMore)}
+                      >
+                        {showMore ? "See less" : "See more"}
+                      </button>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+
+                  {/* {details && details[0]?.book?.description ? (
                   <div className="description">
                     <div className="inner_description">
                       <p>
@@ -612,203 +669,202 @@ const BookDetails = (props) => {
                           : ""}
                       </p>
                     </div>
-                    <span className="show_more">see more details</span>
+                    <span className="show_more">see more details</span> */}
 
-                    {/* <span className="show_less" style="display: none"
+                  {/* <span className="show_less" style="display: none"
                   >see less details &gt;&gt;</span
                 > */}
-                  </div>
+                  {/* </div>
                 ) : (
                   ""
-                )}
+                )} */}
 
-                {/* here coursal logic  */}
-                <Slider {...settings}>
-                  <div className="details_box ">
-                    <div className="inner_box">
-                      <p className="detail_type">Language</p>
-                      <p className="detail_image">
-                        <i className="fas fa-globe-europe"></i>
-                      </p>
-                      <p className="detail_des">
-                        {details[0]?.language?.language_name}
-                      </p>
+                  {/* here coursal logic  */}
+                  <Slider {...settings}>
+                    <div className="details_box ">
+                      <div className="inner_box">
+                        <p className="detail_type">Language</p>
+                        <p className="detail_image">
+                          <i className="fas fa-globe-europe"></i>
+                        </p>
+                        <p className="detail_des">
+                          {details[0]?.language?.language_name}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="details_box ">
+                      <div className="inner_box">
+                        <p className="detail_type">Publisher</p>
+                        <p className="detail_image">
+                          <i className="fa-solid fa-building-user"></i>
+                        </p>
+                        <p className="detail_des">
+                          {details[0]?.publisher?.name
+                            ? details[0]?.publisher?.name
+                            : "N/A"}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="details_box ">
+                      <div className="inner_box">
+                        <p className="detail_type">ISBN </p>
+                        <p className="detail_image">
+                          <i className="fa-solid fa-barcode"></i>
+                        </p>
+                        <p className="detail_des">
+                          {details && details[0]?.book?.isbn
+                            ? details[0]?.book?.isbn
+                            : "N/A"}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="details_box ">
+                      <div className="inner_box">
+                        <p className="detail_type">Format</p>
+                        <p className="detail_image">
+                          <i className="fa-solid fa-book-open"></i>
+                        </p>
+                        <p className="detail_des">
+                          {details[0]?.format === 1
+                            ? "Hardcover"
+                            : details[0]?.format === 2
+                            ? "Paperback"
+                            : "E-Book"}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="details_box ">
+                      <div className="inner_box">
+                        <p className="detail_type">Genre</p>
+                        <p className="detail_image">
+                          <i className="fas fa-film"></i>
+                        </p>
+                        <p className="detail_des">
+                          {details[0]?.book?.genres[0].name
+                            ? details[0]?.book?.genres[0].name
+                            : "N/A"}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="details_box ">
+                      <div className="inner_box">
+                        <p className="detail_type">Edition</p>
+                        <p className="detail_image">
+                          <i className="far fa-address-book"></i>
+                        </p>
+                        <p className="detail_des">{details[0]?.edition}</p>
+                      </div>
+                    </div>
+                  </Slider>
+
+                  <p className="author_name specifications">
+                    <span>Belongs To: </span>
+                    <div className="publisher">
+                      <select
+                        defaultValue={library_id}
+                        className="form-select"
+                        aria-label="Select Library."
+                        onChange={libraryOnChange}
+                      >
+                        {libraryStatus.length ? (
+                          libraryStatus.map((library) => {
+                            const isEnabled = filteredUserNames.includes(
+                              library.value
+                            );
+                            return (
+                              <option
+                                key={library.value}
+                                value={library.value}
+                                disabled={!isEnabled}
+                              >
+                                {library.label}
+                              </option>
+                            );
+                          })
+                        ) : (
+                          <option value="">No records found.</option>
+                        )}
+                      </select>
+                    </div>
+                  </p>
+
+                  {/* here coursal logic end  */}
+                  <div className="availability">
+                    <div className="label">
+                      <p>Availability</p>
+                    </div>
+                    <div className="avail_options">
+                      <span>
+                        {details[0]?.format === 2 && details[0]?.status == 1
+                          ? "Paperback(1)"
+                          : "Paperback(0)"}
+                      </span>
+                      <span>
+                        {details[0]?.format === 1 && details[0]?.status == 1
+                          ? "Hardcover(1)"
+                          : "Hardcover(0)"}
+                      </span>
+                      <span className="available">
+                        Ebook(
+                        {details && details[0]?.ebooksubscriptions.length
+                          ? 20 - details[0]?.ebooksubscriptions.length
+                          : 0}
+                        )
+                      </span>
                     </div>
                   </div>
 
-                  <div className="details_box ">
-                    <div className="inner_box">
-                      <p className="detail_type">Publisher</p>
-                      <p className="detail_image">
-                        <i className="fa-solid fa-building-user"></i>
-                      </p>
-                      <p className="detail_des">
-                        {details[0]?.publisher?.name
-                          ? details[0]?.publisher?.name
-                          : "N/A"}
-                      </p>
-                    </div>
-                  </div>
+                  <div class="buttons">
+                    {(details[0]?.format === 1 && details[0]?.status == 1) ||
+                    (details[0]?.format === 2 && details[0]?.status == 1) ? (
+                      <button
+                        type="button"
+                        class="frontend-btn btn-warning"
+                        // onClick={(index) =>
+                        //   handleReserve(
+                        //     details[0]?.id,
+                        //     index,
+                        //     details[0]?.book?.library_id
+                        //   )
+                        // }
+                      >
+                        <span> Reserve</span>
+                      </button>
+                    ) : (
+                      ""
+                    )}
 
-                  <div className="details_box ">
-                    <div className="inner_box">
-                      <p className="detail_type">ISBN </p>
-                      <p className="detail_image">
-                        <i className="fa-solid fa-barcode"></i>
-                      </p>
-                      <p className="detail_des">
-                        {details && details[0]?.book?.isbn
-                          ? details[0]?.book?.isbn
-                          : "N/A"}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="details_box ">
-                    <div className="inner_box">
-                      <p className="detail_type">Format</p>
-                      <p className="detail_image">
-                        <i className="fa-solid fa-book-open"></i>
-                      </p>
-                      <p className="detail_des">
-                        {details[0]?.format === 1
-                          ? "Hardcover"
-                          : details[0]?.format === 2
-                          ? "Paperback"
-                          : "E-Book"}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="details_box ">
-                    <div className="inner_box">
-                      <p className="detail_type">Genre</p>
-                      <p className="detail_image">
-                        <i className="fas fa-film"></i>
-                      </p>
-                      <p className="detail_des">
-                        {details[0]?.book?.genres[0].name
-                          ? details[0]?.book?.genres[0].name
-                          : "N/A"}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="details_box ">
-                    <div className="inner_box">
-                      <p className="detail_type">Edition</p>
-                      <p className="detail_image">
-                        <i className="far fa-address-book"></i>
-                      </p>
-                      <p className="detail_des">{details[0]?.edition}</p>
-                    </div>
-                  </div>
-                </Slider>
-
-                <p className="author_name specifications">
-                  <span>Belongs To: </span>
-                  <div className="publisher">
-                    <select
-                      defaultValue={library_id}
-                      className="form-select"
-                      aria-label="Select Library."
-                      onChange={libraryOnChange}
-                    >
-                      {libraryStatus.length ? (
-                        libraryStatus.map((library) => {
-                          const isEnabled = filteredUserNames.includes(library.value);
-                          return (
-                            <option
-                              key={library.value}
-                              value={library.value}
-                              disabled={!isEnabled}
-                            >
-                              {library.label}
-                            </option>
-                          );
-                        })
-                      ) : (
-                        <option value="">No records found.</option>
-                      )}
-                    </select>
-                  </div>
-                </p>
-
-                {/* here coursal logic end  */}
-                <div className="availability">
-                  <div className="label">
-                    <p>Availability</p>
-                  </div>
-                  <div className="avail_options">
-                    <span>
-                      {details[0]?.format === 2 && details[0]?.status == 1
-                        ? "Paperback(1)"
-                        : "Paperback(0)"}
-                    </span>
-                    <span>
-                      {details[0]?.format === 1 && details[0]?.status == 1
-                        ? "Hardcover(1)"
-                        : "Hardcover(0)"}
-                    </span>
-                    <span className="available">
-                      Ebook(
-                      {details && details[0]?.ebooksubscriptions.length
-                        ? 20 - details[0]?.ebooksubscriptions.length
-                        : 0}
-                      )
-                    </span>
+                    {details[0]?.format === 3 ? (
+                      <div class="buttons">
+                        {details ? (
+                          <button
+                            type="button"
+                            className={`frontend-btn btn-warning e-book `}
+                            // onClick={() =>
+                            //   handleSubscribe(
+                            //     book.id,
+                            //     book.book.library_id
+                            //   )
+                            // }
+                          >
+                            <span>Subscribe E-book</span>
+                          </button>
+                        ) : (
+                          "hy not found"
+                        )}
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
-
-                <div class="buttons">
-                  {(details[0]?.format === 1 && details[0]?.status == 1) ||
-                  (details[0]?.format === 2 && details[0]?.status == 1) ? (
-                    <button
-                      type="button"
-                      class="frontend-btn btn-warning"
-                      // onClick={(index) =>
-                      //   handleReserve(
-                      //     details[0]?.id,
-                      //     index,
-                      //     details[0]?.book?.library_id
-                      //   )
-                      // }
-                    >
-                      <span> Reserve</span>
-                    </button>
-                  ) : (
-                    ""
-                  )}
-
-                  {details[0]?.format === 3 ? (
-                    <div class="buttons">
-                      {details ? (
-                        <button
-                          type="button"
-                          className={`frontend-btn btn-warning e-book `}
-                          // onClick={() =>
-                          //   handleSubscribe(
-                          //     book.id,
-                          //     book.book.library_id
-                          //   )
-                          // }
-                        >
-                          <span>Subscribe E-book</span>
-                        </button>
-                      ) : (
-                        "hy not found"
-                      )}
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </div>
-
-
-                
               </div>
-            </div>)}
-            
+            )}
           </div>
           {/* );
                 })
