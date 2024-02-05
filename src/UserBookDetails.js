@@ -34,9 +34,9 @@ const TreadingBooks = (props) => {
           </div>
           {details1.length !== 0 ? (
             details1.slice(0, 4).map((book, i) => {
-              if (book.library_id == "111") {
+              if (book.library_id === "111") {
                 var site_name_image_path = `https://dindayalupadhyay.smartcitylibrary.com/uploads/books/thumbnail/${book.image}`;
-              } else if (book.library_id == "222") {
+              } else if (book.library_id === "222") {
                 var site_name_image_path = `https://kundanlalgupta.smartcitylibrary.com/uploads/books/thumbnail/${book.image}`;
               } else {
                 var site_name_image_path = `https://rashtramatakasturba.smartcitylibrary.com/uploads/books/thumbnail/${book.image}`;
@@ -126,7 +126,9 @@ const TreadingBooks = (props) => {
             })
           ) : (
             <div className="spinner">
-              <img src="/public/images/301.gif" />
+                <img src="/public/images/301.gif"
+                 alt=''/>
+               
             </div>
           )}
         </div>
@@ -176,7 +178,7 @@ const BookDetails = (props) => {
       setDetails(resources.data.data);
     };
     fetchDetails();
-  }, []);
+  },[]);
 
   // const status = details.some(
   //   (book) => book.book.library_id === libraryStatus.value
@@ -314,6 +316,7 @@ const BookDetails = (props) => {
                     src={filteredUsers[0]?.book?.image_path}
                     className="img-responsive"
                     width={400}
+                    alt=''
                     onError={({ currentTarget }) => {
                       currentTarget.onerror = null;
                       currentTarget.src = defaultBook;
@@ -511,13 +514,13 @@ const BookDetails = (props) => {
                     <div className="avail_options">
                       <span>
                         {filteredUsers[0]?.format === 2 &&
-                        filteredUsers[0]?.status == 1
+                        filteredUsers[0]?.status === 1
                           ? "Paperback(1)"
                           : "Paperback(0)"}
                       </span>
                       <span>
                         {filteredUsers[0]?.format === 1 &&
-                        filteredUsers[0]?.status == 1
+                        filteredUsers[0]?.status === 1
                           ? "Hardcover(1)"
                           : "Hardcover(0)"}
                       </span>
@@ -534,9 +537,9 @@ const BookDetails = (props) => {
 
                   <div class="buttons">
                     {(filteredUsers[0]?.format === 1 &&
-                      filteredUsers[0]?.status == 1) ||
+                      filteredUsers[0]?.status === 1) ||
                     (filteredUsers[0]?.format === 2 &&
-                      filteredUsers[0]?.status == 1) ? (
+                      filteredUsers[0]?.status === 1) ? (
                       <button
                         type="button"
                         class="frontend-btn btn-warning"
@@ -585,7 +588,8 @@ const BookDetails = (props) => {
                   <img
                     src={details[0]?.book?.image_path}
                     className="img-responsive"
-                    width={400}
+                      width={400}
+                      alt=''
                     onError={({ currentTarget }) => {
                       currentTarget.onerror = null;
                       currentTarget.src = defaultBook;
@@ -800,12 +804,12 @@ const BookDetails = (props) => {
                     </div>
                     <div className="avail_options">
                       <span>
-                        {details[0]?.format === 2 && details[0]?.status == 1
+                        {details[0]?.format === 2 && details[0]?.status === 1
                           ? "Paperback(1)"
                           : "Paperback(0)"}
                       </span>
                       <span>
-                        {details[0]?.format === 1 && details[0]?.status == 1
+                        {details[0]?.format === 1 && details[0]?.status === 1
                           ? "Hardcover(1)"
                           : "Hardcover(0)"}
                       </span>
@@ -820,8 +824,8 @@ const BookDetails = (props) => {
                   </div>
 
                   <div class="buttons">
-                    {(details[0]?.format === 1 && details[0]?.status == 1) ||
-                    (details[0]?.format === 2 && details[0]?.status == 1) ? (
+                    {(details[0]?.format === 1 && details[0]?.status === 1) ||
+                    (details[0]?.format === 2 && details[0]?.status === 1) ? (
                       <button
                         type="button"
                         class="frontend-btn btn-warning"
